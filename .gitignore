@@ -1,0 +1,15 @@
+#Build
+/bin/
+
+#env
+.env
+
+# editor
+.vscode/
+
+# logs
+*.log
+_debug_*
+
+# test reports
+*.out

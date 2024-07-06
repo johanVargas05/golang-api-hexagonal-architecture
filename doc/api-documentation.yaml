@@ -1,0 +1,272 @@
+openapi: 3.0.3
+info:
+  title: API Documentation
+  version: 1.0.0
+  description: This is the API documentation for the API.
+  contact:
+    name: API Support
+    email: sactrom@gmail.com
+
+tags:
+  - name: Portfolios
+    description: Operations related to portfolios
+
+servers:
+  - url: http://localhost:3000
+    description: Development server
+
+paths:
+  /v1/user/portfolio/{id}:
+    post:
+      tags:
+        - Portfolios
+      summary: Get all portfolios of a user
+      description: Get all portfolios of a user, given the user ID
+      operationId: getPortfolios
+      parameters:
+        - name: id
+          in: path
+          description: ID of the user
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PortfolioRequest"
+
+      responses:
+        "200":
+          description: Portfolio added successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessFindResponse"
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BadRequestResponse"
+        "404":
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NotFoundResponse"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+  /seed:
+    get:
+      tags:
+        - Portfolios
+      summary: Seed data
+      description: Seed data for the database
+      operationId: seedData
+      responses:
+        "200":
+          description: Data seeded successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BaseResponse"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponse"
+components:
+  schemas:
+    BaseResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Success"
+          description: Message of the response
+        code:
+          type: integer
+          example: 200
+          description: Code of the response
+    PortfolioRequest:
+      type: object
+      properties:
+        sort:
+          type: string
+          example: "desc"
+          enum:
+            - asc
+            - desc
+          default: "desc"
+        sort_by:
+          type: string
+          example: "title"
+          enum:
+            - title
+            - brand
+            - min_order_units
+            - price
+            - points
+            - created_at
+          default: "created_at"
+        page_size:
+          type: integer
+          example: 10
+          minimum: 1
+          maximum: 100
+        page:
+          type: integer
+          example: 1
+          minimum: 1
+        search:
+          type: string
+          example: "search"
+          description: Search portfolio by title, brand, category, sku, or classification
+      required: [page_size, page]
+    PortfolioResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: "66888005c8e91e879c0c6cc8"
+          description: ID of the product
+        brand:
+          type: string
+          example: "VIP"
+          description: Brand of the product
+        category:
+          type: string
+          example: "VIP PEACH"
+          description: Category of the product
+        category_id:
+          type: string
+          example: "LICOR"
+          description: Category ID of the product
+        channel:
+          type: string
+          example: "yalo"
+          description: Channel of the product
+        classification:
+          type: string
+          example: "LICOR"
+          description: Classification of the product
+        country:
+          type: string
+          example: "GV01"
+          description: Country of the product
+        created_at:
+          type: string
+          format: date-time
+          example: "2021-07-21T00:00:00.000Z"
+          description: Date and time the product was created
+        customer_id:
+          type: string
+          example: "0acb1a43-c793-4d19-8ff7-fbc61a2451ef"
+          description: Customer ID of the product
+        min_order_units:
+          type: integer
+          example: 10
+          description: Minimum order units of the product
+        order_reason_redeem:
+          type: string
+          example: "630"
+          description: Order reason redeem of the product
+        package_description:
+          type: string
+          example: "1 box"
+          description: Package description of the product
+        package_unit_description:
+          type: string
+          example: "24 ea"
+          description: Package unit description of the product
+        price:
+          type: number
+          example: 10.0
+          description: Price of the product
+        points:
+          type: integer
+          example: 10
+          description: Points of the product
+        redeem_unit:
+          type: string
+          example: "UN"
+          description: Redeem unit of the product
+        route:
+          type: string
+          example: "101106"
+          description: Route of the
+        sku:
+          type: string
+          example: "BA013156"
+          description: SKU of the product
+        sku_redeem:
+          type: boolean
+          example: true
+          description: SKU redeem of the product
+        taxes:
+          type: array
+          items:
+            type: object
+            properties:
+              rate:
+                type: number
+                example: 10.0
+                description: Tax rate of the product
+              tax_id:
+                type: string
+                example: "MWST"
+                description: Tax id of the product
+              tax_type:
+                type: string
+                example: "porcentaje"
+                description: Tax type of the product
+        title:
+          type: string
+          example: "Product Title"
+          description: Title of the product
+        unitsPerBox:
+          type: integer
+          example: 10
+          description: Units per box of the product
+        quantity_max_redeem:
+          type: integer
+          example: 10
+          description: Maximum quantity that can be redeemed
+    SuccessFindResponse:
+      allOf:
+        - $ref: "#/components/schemas/BaseResponse"
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: "#/components/schemas/PortfolioResponse"
+    InternalServerErrorResponse:
+      allOf:
+        - $ref: "#/components/schemas/BaseResponse"
+        - type: object
+          example:
+            message: "Internal server error"
+            code: 500
+    NotFoundResponse:
+      allOf:
+        - $ref: "#/components/schemas/BaseResponse"
+        - type: object
+          example:
+            message: "User not found"
+            code: 404
+    BadRequestResponse:
+      allOf:
+        - $ref: "#/components/schemas/BaseResponse"
+        - type: object
+          example:
+            message: "Invalid request"
+            code: 400
