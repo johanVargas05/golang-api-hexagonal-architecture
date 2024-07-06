@@ -2,7 +2,7 @@ openapi: 3.0.3
 info:
   title: API Documentation
   version: 1.0.0
-  description: This is the API documentation for the API.
+  description: "This is the API documentation for the API. Open documentation in [Swagger Editor](https://editor.swagger.io/)"
   contact:
     name: API Support
     email: sactrom@gmail.com
@@ -82,6 +82,25 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/InternalServerErrorResponse"
+  /health:
+    get:
+      tags:
+        - Portfolios
+      summary: Health check
+      description: Health check for the API
+      operationId: healthCheck
+      responses:
+        "200":
+          description: API is healthy
+          content:
+            application/json:
+              example:
+                message: "API is healthy"
+                code: 200
+                data:
+                  status: "UP"
+                  current_time: "2021-07-21T00:00:00.000Z"
+
 components:
   schemas:
     BaseResponse:
