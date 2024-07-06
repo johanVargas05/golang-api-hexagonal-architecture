@@ -7,6 +7,6 @@ import (
 )
 
 func InitRouters(e *echo.Echo) {
-controller:=controllers.New()
-e.GET("/health", controller.Execute)
+	controller:=controllers.New()
+	e.GET("/health", controller.Execute)
 }
