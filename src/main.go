@@ -7,6 +7,9 @@ import (
 
 	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
+
+	"github.com/johanVargas05/golang-api-hexagonal-architecture/src/infrastructure/primary/api/routers"
 )
 
 func main() {
@@ -19,11 +22,15 @@ func main() {
 
 	e := echo.New()
 
-	e.GET("/", func(c echo.Context) error {
-		return c.String(200, "Hello, World!")
-	})
+	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+		AllowOrigins: []string{"*"},
+		AllowMethods: []string{echo.GET, echo.POST},
+	}))
+
+	routers.InitRoutes(e)
 
 	if err := e.Start(":"+port); err != nil {
 		log.Fatalf("Error starting server: %v", err)
 	}
+	
 }
