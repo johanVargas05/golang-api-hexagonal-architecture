@@ -53,7 +53,11 @@ func New() *LoadDataSeedRepository {
 }
 
 func (l *LoadDataSeedRepository) Execute() ([]*entities.Portfolio, error) {
-	fileJson,err:=os.Open("src/infrastructure/secondary/repositories/files/seed/data/portfolios.clients-portfolios.json")
+	filePath := os.Getenv("FILE_PATH")
+	if filePath == "" {
+			filePath = "src/infrastructure/secondary/repositories/files/seed/data/portfolios.clients-portfolios.json"
+	}
+	fileJson,err:=os.Open(filePath)
 	
 	if err!=nil{
 		return nil,err

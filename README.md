@@ -110,9 +110,17 @@ To generate the mocks for the tests, use:
 mockery --dir=./ --all --output=mocks
 ```
 
-### Starting Dependencies with Docker Compose
+### Build the image of our app
 
-To start the dependencies such as Redis and MongoDB, use:
+This command is used to create the image for our app based on the `Dockerfile`, use:
+
+```sh
+docker build -t api-rest-of-portfolios-with-golang .
+```
+
+### Starting my application with all its dependencies
+
+To start the application with all its dependencies, use:
 
 ```sh
 docker-compose -p api_golang up -d

@@ -1,0 +1,34 @@
+# Ignore documentation and README files
+README.md
+doc/
+
+# Ignore mocks and test directories
+mocks/
+*_test.go
+
+# Ignore development environment specific configuration files
+.env
+.vscode/
+.idea/
+
+# ignore dependency directories
+vendor/
+
+# Ignore binary or executable files that may exist
+*.exe
+*.bin
+*.out
+
+# Ignore log directories or log files
+logs/
+*.log
+
+# Ignore temporary files
+*.tmp
+*.swp
+
+# .github directory
+.github/
+
+# Ignore editor sh files
+*.sh
