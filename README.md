@@ -72,6 +72,7 @@ The infrastructure layer is divided into two parts with specific responsibilitie
 ## Dependencies
 
 - [Editor swagger](https://editor.swagger.io/)
+- [Documentation of this rest Api in postman](https://www.postman.com/tyrcode/workspace/backend-for-front-end-go-nest-js)
 - [Mockery](https://vektra.github.io/mockery/latest/installation/)
 
 ## Scripts
