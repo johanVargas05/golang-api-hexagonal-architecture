@@ -13,7 +13,7 @@ type Tax struct {
 	rate *validate_object.NumberValidateObject
 }
 
-func InitTax(id,typeTax string, rate float64) *Tax {
+func InitTax(id,typeTax string, rate int) *Tax {
 	return &Tax{
 		id: validate_object.NewStringValueObject(id, "id tax"),
 		typeTax: validate_object.NewStringValueObject(typeTax, "type tax"),

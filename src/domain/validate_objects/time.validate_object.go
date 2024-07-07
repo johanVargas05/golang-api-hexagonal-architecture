@@ -31,7 +31,7 @@ func (t *TimeValidateObject) Value() time.Time {
 	if t.value == nil {
 		return time.Time{}
 	}
-	return t.value.(time.Time)
+	return *(t.value.(*time.Time))
 }
 
 func (t *TimeValidateObject) ValueString() string {

@@ -1,6 +1,9 @@
 package validate_object
 
-import "fmt"
+import (
+	"fmt"
+	"strconv"
+)
 
 type NumberValidateObject struct {
 	value         any
@@ -36,7 +39,18 @@ func (n *NumberValidateObject) IsDifferentZero() *NumberValidateObject {
 }
 
 func (n *NumberValidateObject) Value() int {
-	return n.value.(int)
+	strValue, ok := n.value.(string)
+	if !ok {
+		return n.value.(int)
+	}
+
+	intValue, err := strconv.Atoi(strValue)
+
+	if err != nil {
+		return 0
+	}
+	return intValue
+
 }
 
 func (n *NumberValidateObject) Validate() error {
