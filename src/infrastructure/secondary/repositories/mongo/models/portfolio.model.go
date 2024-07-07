@@ -39,7 +39,7 @@ type Price struct {
 type Tax struct {
 	TaxType string `bson:"taxType"`
 	TaxId   string `bson:"taxId"`
-	Rate    float64 `bson:"rate"`
+	Rate    int `bson:"rate"`
 }
 
 type Indexes struct {

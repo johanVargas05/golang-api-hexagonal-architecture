@@ -10,6 +10,7 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 
 	"github.com/johanVargas05/golang-api-hexagonal-architecture/src/infrastructure/primary/api/routers"
+	"github.com/johanVargas05/golang-api-hexagonal-architecture/src/infrastructure/secondary/pkg"
 )
 
 func main() {
@@ -26,6 +27,8 @@ func main() {
 		AllowOrigins: []string{"*"},
 		AllowMethods: []string{echo.GET, echo.POST},
 	}))
+
+	pkg.FlushAllRegisters()
 
 	routers.InitRoutes(e)
 

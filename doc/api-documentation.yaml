@@ -117,7 +117,7 @@ components:
     PortfolioRequest:
       type: object
       properties:
-        sort:
+        sort_type:
           type: string
           example: "desc"
           enum:
@@ -140,7 +140,7 @@ components:
           example: 10
           minimum: 1
           maximum: 100
-        page:
+        current_page:
           type: integer
           example: 1
           minimum: 1
@@ -148,7 +148,7 @@ components:
           type: string
           example: "search"
           description: Search portfolio by title, brand, category, sku, or classification
-      required: [page_size, page]
+      required: [page_size, current_page]
     PortfolioResponse:
       type: object
       properties:

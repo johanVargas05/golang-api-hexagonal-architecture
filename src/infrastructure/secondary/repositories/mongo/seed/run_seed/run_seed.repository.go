@@ -41,7 +41,7 @@ func (r *RunSeedRepository) Execute(portfolios[]*entities.Portfolio) error{
 			taxes = append(taxes, models_mongo.Tax{
 				TaxType: tax.TypeTax(),
 				TaxId: tax.ID(),
-				Rate: tax.Rate(),
+				Rate: tax.RateRaw(),
 			})
 		}
 		

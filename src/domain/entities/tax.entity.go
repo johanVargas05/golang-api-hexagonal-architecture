@@ -33,6 +33,10 @@ func (t *Tax) Rate() float64 {
 	return math.Round(float64(t.rate.Value())*100) / 100
 }
 
+func (t *Tax) RateRaw() int {
+	return t.rate.Value()
+}
+
 func (t *Tax) Validate() error {
 	v := reflect.ValueOf(t).Elem()
 
