@@ -64,7 +64,7 @@ func InitPortfolio(params *PortfolioEntityParams) *Portfolio {
 		id: validate_object.NewStringValueObject(params.ID, "id").IsOptional().IsID(),
 		channel: validate_object.NewStringValueObject(params.Channel, "channel").MinLength(4).MaxLength(10),
 		country: validate_object.NewStringValueObject(params.Country, "country").MinLength(4).MaxLength(5),
-		createAt: validate_object.NewTimeValueObject(params.CreateAt, "createAt").Format("2006-01-02T00:00:00-07:00"),
+		createAt: validate_object.NewTimeValueObject(params.CreateAt, "createAt").Format("2006-01-02T15:04:05.000Z07:00"),
 		customerId: validate_object.NewStringValueObject(params.CustomerID, "customerId").IsID(),
 		route: validate_object.NewStringValueObject(params.Route, "route").MinLength(4).MaxLength(10),
 		sku: validate_object.NewStringValueObject(params.SKU, "sku").MinLength(6).MaxLength(10),
@@ -177,6 +177,14 @@ func (p *Portfolio) Price() float64 {
 	}
 	
 	return value
+}
+
+func (p *Portfolio) Taxes() []*Tax {
+	return p.taxes
+}
+
+func (p *Portfolio) FullPrice() float64 {
+	return p.fullPrice.Value()
 }
 
 func (p *Portfolio) Points() int {
