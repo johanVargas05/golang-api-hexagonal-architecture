@@ -1,13 +1,26 @@
 version: "3"
 services:
   mongo:
-    container_name: mongo
+    container_name: mongo-db
     image: mongo:latest
     ports:
       - "27017:27017"
   redis:
-    container_name: redis
+    container_name: redis-db
     image: redis:latest
     ports:
       - "6379:6379"
-
+  myapp:
+    container_name: api-rest
+    image: api-rest-of-portfolios-with-golang:latest
+    environment:
+      MONGO_DB_HOST: mongo
+      MONGO_DB_PORT: 27017
+      MONGO_DB_DATABASE: portfolios
+      REDIS_HOST: redis
+      PORT: 3000
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongo
+      - redis
